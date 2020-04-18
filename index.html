@@ -15,7 +15,7 @@
       <!-- 定位 -->
       <div class="location">
         <span class="localtionIcon iconfont">&#xe60b;</span>
-        <span class="localtionCity">上海</span>
+        <span id="localtionCity" class="localtionCity"></span>
       </div>
       <!-- 搜索 -->
       <div class="search">
@@ -46,61 +46,30 @@
       <div class="weatherStatus">
         <div class="weatherStatusBox">
           <div class="weatherDate">
-            <span>2020-4-15</span>
-            <span>星期一</span>
+            <span id="date"></span>
+            <span id="day"></span>
           </div>
           <div class="weatherTem">
-            <div class="tem">20℃</div>
+            <div id="tmp" class="tem"></div>
             <div class="weatherTemIcon">
               <div class="box">
                 <div class="boxIcon"></div>
-                <div class="boxText">晴</div>
+                <div id="boxText" class="boxText"></div>
               </div>
             </div>
           </div>
           <div class="wind">
-            <span>东北风</span>
-            <span>风速：30km/h</span>
-            <span>风力:2级</span>
+            <span id="windDir">东北风</span>
+            <span id="windSpeed">风速：30km/h</span>
+            <span id="windLevel">风力:2级</span>
           </div>
         </div>
       </div>
       <!-- 24小时天气布局 -->
       <div class="hoursWeather">
-        <div class="hoursTitle">24小时天气</div>
+        <div class="hoursTitle">24小时天气预报</div>
         <div class="hoursBox">
-          <ul class="hours">
-            <li>
-              <div>23:00</div>
-              <div class="hoursIcon"></div>
-              <div>23℃</div>
-              <div>北风</div>
-            </li>
-            <li>
-              <div>23:00</div>
-              <div class="hoursIcon"></div>
-              <div>23℃</div>
-              <div>北风</div>
-            </li>
-            <li>
-              <div>23:00</div>
-              <div class="hoursIcon"></div>
-              <div>23℃</div>
-              <div>北风</div>
-            </li>
-            <li>
-              <div>23:00</div>
-              <div class="hoursIcon"></div>
-              <div>23℃</div>
-              <div>北风</div>
-            </li>
-            <li>
-              <div>23:00</div>
-              <div class="hoursIcon"></div>
-              <div>23℃</div>
-              <div>北风</div>
-            </li>
-
+          <ul id="hours" class="hours">
           </ul>
         </div>
 
@@ -110,47 +79,7 @@
       <div class="futrueWeather">
         <div class="futureTitle">未来九天天气</div>
         <div>
-          <div class="futureWeatherBox">
-            <div class="futureItem">
-              <span>11/05</span>
-              <span>
-                <i class="fIcon"></i>
-              </span>
-              <span>17-24</span>
-              <span>晴</span>
-            </div>
-            <div class="futureItem">
-              <span>11/05</span>
-              <span>
-                <i class="fIcon"></i>
-              </span>
-              <span>17-24</span>
-              <span>晴</span>
-            </div>
-            <div class="futureItem">
-              <span>11/05</span>
-              <span>
-                <i class="fIcon"></i>
-              </span>
-              <span>17-24</span>
-              <span>晴</span>
-            </div>
-            <div class="futureItem">
-              <span>11/05</span>
-              <span>
-                <i class="fIcon"></i>
-              </span>
-              <span>17-24</span>
-              <span>晴</span>
-            </div>
-            <div class="futureItem">
-              <span>11/05</span>
-              <span>
-                <i class="fIcon"></i>
-              </span>
-              <span>17-24</span>
-              <span>晴</span>
-            </div>
+          <div  id="futureWeatherBox"class="futureWeatherBox">
           </div>
         </div>
 
@@ -190,7 +119,7 @@
         </div>
     </div>
     </div>
-    <div class="tip">
+    <div id="tip" class="tip">
       <div class="tipLine">
         <i></i>
         <i></i>
@@ -202,5 +131,7 @@
   </div>
 
   <script src="./js/rem.js"></script>
+  <script src="./js/jquery-3.5.0.min.js"></script>
+  <script src="./js/index.js"></script>
 </body>
 </html>
