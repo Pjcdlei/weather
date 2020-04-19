@@ -19,8 +19,8 @@
       </div>
       <!-- 搜索 -->
       <div class="search">
-        <input type="text" class="searchInput" placeholder="请输入城市">
-        <span class="searchIcon iconfont" >&#xe600;</span>
+        <input id="searchInput" type="text" class="searchInput" placeholder="请输入城市">
+        <span id="searchIcon" class="searchIcon iconfont" >&#xe600;</span>
       </div>
       <!-- 下拉菜单 -->
       <div class="list">
@@ -36,14 +36,14 @@
           <span>1 <i class="closeIcon"></i></span>
           <span>1 <i class="closeIcon"></i></span>
           <span>1 <i class="closeIcon"></i></span>
- 
+
         </div>
       </div>
     </div>
     <!--  主体内容 -->
     <div class="main">
       <!-- 实况天气 -->
-      <div class="weatherStatus">
+      <div id="weatherStatus" class="weatherStatus">
         <div class="weatherStatusBox">
           <div class="weatherDate">
             <span id="date"></span>
@@ -53,15 +53,15 @@
             <div id="tmp" class="tem"></div>
             <div class="weatherTemIcon">
               <div class="box">
-                <div class="boxIcon"></div>
+                <div id="boxIcon" class="boxIcon"></div>
                 <div id="boxText" class="boxText"></div>
               </div>
             </div>
           </div>
           <div class="wind">
-            <span id="windDir">东北风</span>
-            <span id="windSpeed">风速：30km/h</span>
-            <span id="windLevel">风力:2级</span>
+            <span id="windDir"></span>
+            <span id="windSpeed"></span>
+            <span id="windLevel"></span>
           </div>
         </div>
       </div>
@@ -85,35 +85,12 @@
 
       </div>
       <!-- 空气质量与生活指数 -->
-      <div class="airLifeBox">
+      <div id="airLifeBox" class="airLifeBox">
         <div class="airLife">
           <div class="airTitle">空气质量与生活指数</div>
           <div>
-            <ul class="airList">
-              <li>
-                <span>二氧化硫</span>
-                <span>b</span>
-              </li>
-              <li>
-                <span>二氧化硫</span>
-                <span>b</span>
-              </li>
-              <li>
-                <span>二氧化硫</span>
-                <span>b</span>
-              </li>
-              <li>
-                <span>二氧化硫</span>
-                <span>b</span>
-              </li>
-              <li>
-                <span>二氧化硫</span>
-                <span>b</span>
-              </li>
-              <li>
-                <span>二氧化硫</span>
-                <span>b</span>
-              </li>
+            <ul id="airList" class="airList">
+              
             </ul>
           </div>
         </div>
