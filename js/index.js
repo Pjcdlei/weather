@@ -1,4 +1,9 @@
 $(function(){
+  //获取本地存储缓存的城市历史记录
+  var cities=localStorage.getItem("cities");
+  cities=cities?JSON.parse(cities):[];
+  // console.log(cities)
+  // console.log({}.toString.call(cities)==="[object Array]")
   //是否已经获取空气质量与生活指数数据
   var isGet=true
   //配置空气质量数据与生活指数数据
@@ -95,7 +100,7 @@ $(function(){
     },
     success:function(data){
       // $("#tip").hide();
-      var city=data.result.ad_info.city;
+      var city=data.result.ad_info.city.replace(/市$/,"");
       $("#localtionCity").text(city);
       getCurrentWeather(city)
       // getHoursWeather(city)
@@ -303,23 +308,165 @@ $(function(){
 
   //切换城市天气数据
   $("#searchIcon").on("click",function(){
+    var city=$("#searchInput").val();
+    //搜索城市与当前城市相同，不发请求
+    var currentCity=$("#localtionCity").text();
+    if(city.trim()==="")return;
+    if(city.replace(/市$/,"")==currentCity.replace(/市$/,"")){
+      console.log("1")
+      $("#searchInput").val("");
+      $("#list").hide()
+      return;
+    }
     isGet=true;
     //清空空气质量与生活指数内容
     $("#airList").html("")
     //显示加载提示
     $("#tip").show()
-    var city=$("#searchInput").val();
       //设置城市
-      $("#localtionCity").text(city)
+      $("#localtionCity").text(city.replace(/市$/,""));
       //清空文本内容
       $("#searchInput").val("");
       //清空24小时天气数据内容
-      $("#hours").html(""),
+      $("#hours").html("")
       //清空未来九天天气数据
-      $("#futureWeatherBox").html(""),
+      $("#futureWeatherBox").html("")
+
+      var c=city.replace(/市$/,"").trim();
+      //如果没有缓存过的城市
+      if(cities.indexOf(c)===-1){
+        console.log(cities)
+      //缓存城市历史记录
+      cities.unshift(c);
+      console.log(cities)
+      //将cities写入本地存储
+      var citiesString=JSON.stringify(cities);
+      // var citiesString=cities.toString();
+      localStorage.setItem("cities",citiesString);
+      isYes=false
+    }
+      $("#list").hide()
+      //获取当前切换城市的天气数据
       getCurrentWeather(city)
       // getHoursWeather(city)
       // getFutureWeather(city)
+  })
+
+  //标记是否有删除城市或者新增城市
+  //var isYes=false;待研究
+  
+  //绑定搜索框的获取焦点事件
+  $("#searchInput").on("focus",function(){
+    //待研究***********************
+    // if(isYes){
+    //   $("#list").show();
+    //   return;
+    // }
+    // console.log("dylan")
+    // isYes=true;
+    //***********上************
+    //绑定缓存城市数据
+    var citiesData=localStorage.getItem("cities");
+    // console.log(citiesData)
+    citiesData=citiesData?JSON.parse(citiesData):[]
+    // console.log(citiesData)
+
+    //如果没有缓存城市数据，不显示下拉菜单
+    if(citiesData.length===0){
+      return;
+    }
+    
+    //先清空列表 再生成标签
+    $("#listTag").html("")
+    //生成下拉菜单标签
+    for (var i=0;i<citiesData.length;i++){
+      var $span=$(`
+      <span>${citiesData[i]}<i class="closeIcon"></i></span>
+      `);
+      $("#listTag").append($span)
+    }
+    $("#list").show()
+  })
+  //关闭下拉菜单
+  $("#close").on("click",function(){
+    $("#list").hide()
+  })
+  
+  //为未来生成下拉菜单标签绑定点击事件
+  $("#listTag").on("click","span",function(){
+    //获取标签的内容
+    var text=$(this).text();
+    console.log(text)
+    //获取当前城市
+    var currentCity=$("#localtionCity").text();
+    if(text==currentCity){
+      console.log("already",text)
+      $("#list").hide()
+      return;
+    }
+
+    //显示加载提示
+    $("#tip").show();
+    $("#localtionCity").text(text);
+    $("#searchInput").val("");
+    //清空24小时天气数据内容
+    $("#hours").html("")
+    //清空未来九天天气数据
+    $("#futureWeatherBox").html("")
+    //获取天气数据
+    getCurrentWeather(text)
+    //空气质量列表清空
+    $("#airList").html("")
+    isGet=true;
+    $("#list").hide()
+
+  })
+
+  //单个删除缓存城市历史记录
+  $("#listTag").on("click",".closeIcon",function(e){
+    
+    //阻止事件冒泡
+    e.stopPropagation();
+    console.log("a");
+    console.log(cities);
+    //获取删除的城市
+    var city=$(this).parent().text();
+    console.log("city==>",city);
+
+
+    //获取cities数组中的数据
+    console.log("chengmiing==>",cities)
+    var Cindex=cities.indexOf(city);
+    console.log("Cindex",Cindex)
+    //删除cities数组中的数据
+    cities.splice(Cindex,1)
+
+    
+    //获取本地存储数据
+    var citiesData=JSON.parse(localStorage.getItem("cities"));
+    //查找数组元素
+    var index=citiesData.indexOf(city);
+    console.log("index==>",index)
+    //删除数组元素
+    citiesData.splice(index,1);
+    console.log("citiesData==>",citiesData)
+    //将删除之后的citiesData数据写入本地存储
+    localStorage.setItem("cities",JSON.stringify(citiesData));
+    //移除页面的下拉菜单标签
+    $(this).parent().remove();
+    //如果当前数据全部被删除，则需要关闭下拉菜单
+    if(citiesData.length==0){
+      $("#list").hide()
+    }
+  })
+
+  //全部删除
+  $("#allDelete").on("click",function(){
+    localStorage.setItem("cities",JSON.stringify([]));
+    $("#listTag").html("");
+    $("#list").hide();
+    cities.length=0;
+    // isYes=false;待研究
   })
 
 })
