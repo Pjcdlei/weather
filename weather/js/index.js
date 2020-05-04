@@ -81,7 +81,7 @@ $(function(){
                 </li>`
               );
               // $("#hours").html($li)
-                //内外引号问题******************
+                //内外引号******************
               // <div class="hoursIcon" style="background-image:url('${iconConfig[hourlyDate[i].cond_code].icon}');"></div>
               $("#hours").append($li)
               // $("#hoursIcon").css({
@@ -373,11 +373,11 @@ $(function(){
   )
 
   //标记是否有删除城市或者新增城市
-  //var isYes=false;待研究
+  //var isYes=false;究
   
   //绑定搜索框的获取焦点事件
   $("#searchInput").on("focus",function(){
-    //待研究***********************
+    //究***********************
     // if(isYes){
     //   $("#list").show();
     //   return;
